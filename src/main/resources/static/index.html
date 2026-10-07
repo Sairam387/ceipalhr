@@ -1,0 +1,6543 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CeipalHR Enterprise</title>
+
+    <style>
+
+        * {
+
+            box-sizing: border-box;
+
+        }
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            background: #f4f6f8;
+
+            color: #222;
+
+        }
+
+        /* =========================
+
+           SIDEBAR
+
+           ========================= */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+
+            top: 0;
+
+            bottom: 0;
+
+            width: 240px;
+
+            background: #005499;
+
+            color: white;
+
+            overflow-y: auto;
+
+        }
+
+        .logo {
+
+            padding: 22px 18px;
+
+            background: #003f73;
+
+            font-size: 22px;
+
+            font-weight: bold;
+
+            text-align: center;
+
+        }
+
+        .logo span {
+
+            color: #f46933;
+
+        }
+
+        .menu-title {
+
+            padding: 18px 18px 8px;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            color: #c9e1f5;
+
+            font-weight: bold;
+
+        }
+
+        .nav-item {
+
+            padding: 13px 18px;
+
+            cursor: pointer;
+
+            border-left: 4px solid transparent;
+
+            font-size: 14px;
+
+        }
+
+        .nav-item\:hover {
+
+            background: #074a7c;
+
+        }
+
+        .nav-item.active {
+
+            background: #073f68;
+
+            border-left-color: #f46933;
+
+        }
+
+        /* =========================
+
+           MAIN
+
+           ========================= */
+
+        .main {
+
+            margin-left: 240px;
+
+            min-height: 100vh;
+
+        }
+
+        .topbar {
+
+            height: 65px;
+
+            background: white;
+
+            border-bottom: 1px solid #ddd;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 0 25px;
+
+        }
+
+        .topbar h1 {
+
+            margin: 0;
+
+            font-size: 21px;
+
+            color: #005499;
+
+        }
+
+        .topbar-right {
+
+            font-size: 13px;
+
+            color: #666;
+
+        }
+
+        .content {
+
+            padding: 25px;
+
+        }
+
+        .page {
+
+            display: none;
+
+        }
+
+        .page.active {
+
+            display: block;
+
+        }
+
+        .page-title {
+
+            margin: 0 0 20px;
+
+            color: #005499;
+
+            font-size: 24px;
+
+        }
+
+        /* =========================
+
+           CARDS
+
+           ========================= */
+
+        .stats-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+        .stat-card {
+
+            background: white;
+
+            border: 1px solid #ddd;
+
+            border-left: 5px solid #005499;
+
+            padding: 18px;
+
+        }
+
+        .stat-card.orange {
+
+            border-left-color: #f46933;
+
+        }
+
+        .stat-card.green {
+
+            border-left-color: #2e7d32;
+
+        }
+
+        .stat-card.red {
+
+            border-left-color: #c62828;
+
+        }
+
+        .stat-title {
+
+            color: #777;
+
+            font-size: 13px;
+
+            margin-bottom: 8px;
+
+        }
+
+        .stat-value {
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            color: #222;
+
+        }
+
+        /* =========================
+
+           PANELS
+
+           ========================= */
+
+        .panel {
+
+            background: white;
+
+            border: 1px solid #ddd;
+
+            margin-bottom: 20px;
+
+        }
+
+        .panel-header {
+
+            padding: 15px 18px;
+
+            border-bottom: 1px solid #ddd;
+
+            background: #fafafa;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .panel-header h2 {
+
+            margin: 0;
+
+            font-size: 17px;
+
+            color: #005499;
+
+        }
+
+        .panel-body {
+
+            padding: 18px;
+
+        }
+
+        /* =========================
+
+           FORMS
+
+           ========================= */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 15px;
+
+        }
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+        .form-group.full {
+
+            grid-column: 1 / -1;
+
+        }
+
+        label {
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+            color: #555;
+
+        }
+
+        input,
+
+        select,
+
+        textarea {
+
+            width: 100%;
+
+            padding: 9px 10px;
+
+            border: 1px solid #bbb;
+
+            background: white;
+
+            font-size: 13px;
+
+            border-radius: 3px;
+
+        }
+
+        input\:focus,
+
+        select\:focus,
+
+        textarea\:focus {
+
+            outline: none;
+
+            border-color: #005499;
+
+        }
+
+        textarea {
+
+            min-height: 80px;
+
+            resize: vertical;
+
+        }
+
+        .readonly {
+
+            background: #f1f3f5;
+
+        }
+
+        /* =========================
+
+           BUTTONS
+
+           ========================= */
+
+        button {
+
+            border: none;
+
+            padding: 9px 14px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            border-radius: 3px;
+
+        }
+
+        .btn-primary {
+
+            background: #005499;
+
+            color: white;
+
+        }
+
+        .btn-primary\:hover {
+
+            background: #003f73;
+
+        }
+
+        .btn-orange {
+
+            background: #f46933;
+
+            color: white;
+
+        }
+
+        .btn-orange\:hover {
+
+            background: #d9531f;
+
+        }
+
+        .btn-success {
+
+            background: #2e7d32;
+
+            color: white;
+
+        }
+
+        .btn-danger {
+
+            background: #c62828;
+
+            color: white;
+
+        }
+
+        .btn-warning {
+
+            background: #ef8f00;
+
+            color: white;
+
+        }
+
+        .btn-secondary {
+
+            background: #666;
+
+            color: white;
+
+        }
+
+        .button-row {
+
+            margin-top: 18px;
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+        }
+
+        /* =========================
+
+           TABLE
+
+           ========================= */
+
+        .table-container {
+
+            overflow-x: auto;
+
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            font-size: 12px;
+
+        }
+
+        th {
+
+            background: #005499;
+
+            color: white;
+
+            padding: 11px 8px;
+
+            text-align: left;
+
+            white-space: nowrap;
+
+        }
+
+        td {
+
+            padding: 10px 8px;
+
+            border-bottom: 1px solid #ddd;
+
+            white-space: nowrap;
+
+        }
+
+        tr\:hover td {
+
+            background: #f7f9fb;
+
+        }
+
+        /* =========================
+
+           BADGES
+
+           ========================= */
+
+        .badge {
+
+            display: inline-block;
+
+            padding: 4px 8px;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            border-radius: 3px;
+
+        }
+
+        .badge-open {
+
+            background: #fff3cd;
+
+            color: #856404;
+
+        }
+
+        .badge-progress {
+
+            background: #cfe2ff;
+
+            color: #084298;
+
+        }
+
+        .badge-resolved {
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+        }
+
+        .badge-closed {
+
+            background: #e2e3e5;
+
+            color: #41464b;
+
+        }
+
+        .badge-assigned {
+
+            background: #cfe2ff;
+
+            color: #084298;
+
+        }
+
+        .badge-available {
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+        }
+
+        .badge-repair {
+
+            background: #fff3cd;
+
+            color: #664d03;
+
+        }
+
+        .badge-damaged {
+
+            background: #f8d7da;
+
+            color: #842029;
+
+        }
+
+        .badge-retired {
+
+            background: #e2e3e5;
+
+            color: #41464b;
+
+        }
+
+        .badge-returned {
+
+            background: #cff4fc;
+
+            color: #055160;
+
+        }
+
+        /* =========================
+
+           SEARCH
+
+           ========================= */
+
+        .search-row {
+
+            display: flex;
+
+            gap: 10px;
+
+            margin-bottom: 15px;
+
+        }
+
+        .search-row input {
+
+            max-width: 350px;
+
+        }
+
+        /* =========================
+
+           MESSAGE
+
+           ========================= */
+
+        .message {
+
+            padding: 10px 14px;
+
+            margin-bottom: 15px;
+
+            display: none;
+
+            font-size: 13px;
+
+            border: 1px solid;
+
+        }
+
+        .message.success {
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+            border-color: #a3cfbb;
+
+        }
+
+        .message.error {
+
+            background: #f8d7da;
+
+            color: #842029;
+
+            border-color: #f1aeb5;
+
+        }
+
+        /* =========================
+
+           EMPLOYEE DETAILS
+
+           ========================= */
+
+        .employee-info {
+
+            margin-top: 15px;
+
+            padding: 14px;
+
+            background: #f4f8fb;
+
+            border-left: 4px solid #005499;
+
+            display: none;
+
+        }
+
+        .employee-info-title {
+
+            color: #005499;
+
+            font-weight: bold;
+
+            margin-bottom: 10px;
+
+        }
+
+        .employee-info-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 12px;
+
+        }
+
+        .employee-info-item {
+
+            font-size: 12px;
+
+        }
+
+        .employee-info-item strong {
+
+            display: block;
+
+            color: #666;
+
+            margin-bottom: 3px;
+
+        }
+
+        /* =========================
+
+           ASSET ACTIONS
+
+           ========================= */
+
+        .asset-actions {
+
+            display: flex;
+
+            gap: 4px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .asset-actions button {
+
+            font-size: 10px;
+
+            padding: 5px 7px;
+
+        }
+
+
+
+        /* =========================
+
+           EMPLOYEE ACTIONS
+
+           ========================= */
+
+        .employee-actions {
+
+            display: flex;
+
+            gap: 5px;
+
+            flex-wrap: wrap;
+
+        }
+
+        .employee-actions button {
+
+            font-size: 11px;
+
+            padding: 5px 8px;
+
+        }
+
+        /* =========================
+           EMPLOYEE PROFILE
+           ========================= */
+
+        .employee-profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: #005499;
+            color: white;
+            border-left: 5px solid #f46933;
+        }
+
+        .employee-profile-header h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .employee-profile-header p {
+            margin: 5px 0 0;
+            font-size: 13px;
+        }
+
+        .profile-status {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #d1e7dd;
+            color: #0f5132;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .profile-item {
+            padding: 14px;
+            border: 1px solid #d9e1e8;
+            background: #fff;
+        }
+
+        .profile-item strong {
+            display: block;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .profile-item span {
+            display: block;
+            color: #222;
+            font-size: 14px;
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        .profile-section-title {
+            margin: 0 0 15px;
+            color: #005499;
+            font-size: 17px;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        /* =========================
+
+           RESPONSIVE
+
+           ========================= */
+
+        @media (max-width: 1200px) {
+
+            .stats-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+            .form-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+            .employee-info-grid {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+        }
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+
+                width: 190px;
+
+            }
+
+            .main {
+
+                margin-left: 190px;
+
+            }
+
+            .stats-grid,
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- ============================================================
+
+     SIDEBAR
+
+     ============================================================ -->
+
+<div class="sidebar">
+
+    <div class="logo">
+
+        Ceipal<span>HR</span>
+
+    </div>
+
+    <div class="menu-title">HR Management</div>
+
+    <div class="nav-item active" onclick="showPage('dashboard', this)">
+
+        Dashboard
+
+    </div>
+
+    <div class="nav-item" onclick="showPage('employees', this)">
+
+        Employees
+
+    </div>
+
+    <div class="nav-item" onclick="showPage('birthday', this)">
+
+        Birthday Automation
+
+    </div>
+
+    <div class="nav-item" onclick="showPage('anniversary', this)">
+
+        Work Anniversary
+
+    </div>
+
+    <div class="nav-item" onclick="showPage('email-history', this)">
+
+        Email History
+
+    </div>
+
+    <div class="menu-title">IT Management</div>
+
+    <div class="nav-item" onclick="showPage('helpdesk', this)">
+
+        IT Helpdesk
+
+    </div>
+
+    <div class="nav-item" onclick="showPage('assets', this)">
+
+        Asset Management
+
+    </div>
+
+</div>
+
+
+
+<!-- ============================================================
+
+     MAIN
+
+     ============================================================ -->
+
+<div class="main">
+
+    <div class="topbar">
+
+        <h1 id="topbarTitle">CeipalHR Enterprise</h1>
+
+        <div class="topbar-right">
+
+            HR + IT Infrastructure Management
+
+        </div>
+
+    </div>
+
+
+
+    <div class="content">
+
+        <!-- ====================================================
+
+             DASHBOARD
+
+             ==================================================== -->
+
+        <section id="dashboard" class="page active">
+
+            <h1 class="page-title">CeipalHR Dashboard</h1>
+
+            <div id="dashboardMessage" class="message"></div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-title">Total Employees</div>
+                    <div class="stat-value" id="dashboardEmployees">0</div>
+                </div>
+
+                <div class="stat-card orange">
+                    <div class="stat-title">Today's Birthdays</div>
+                    <div class="stat-value" id="dashboardBirthdays">0</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-title">Today's Anniversaries</div>
+                    <div class="stat-value" id="dashboardAnniversaries">0</div>
+                </div>
+
+                <div class="stat-card green">
+                    <div class="stat-title">Automation Status</div>
+                    <div class="stat-value" id="dashboardAutomation">-</div>
+                </div>
+
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Email Automation</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="stats-grid">
+
+                        <div class="stat-card">
+                            <div class="stat-title">Birthday Emails</div>
+                            <div class="stat-value" id="dashboardBirthdayEmails">0</div>
+                        </div>
+
+                        <div class="stat-card orange">
+                            <div class="stat-title">Anniversary Emails</div>
+                            <div class="stat-value" id="dashboardAnniversaryEmails">0</div>
+                        </div>
+
+                        <div class="stat-card green">
+                            <div class="stat-title">Total Emails</div>
+                            <div class="stat-value" id="dashboardTotalEmails">0</div>
+                        </div>
+
+                        <div class="stat-card red">
+                            <div class="stat-title">Failed Emails</div>
+                            <div class="stat-value" id="dashboardFailedEmails">0</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Milestone Automation</h2>
+                </div>
+                <div class="panel-body">
+                    <p id="dashboardAutomationText">Birthday and work anniversary emails are automated.</p>
+                    <p><strong>Schedule:</strong> <span id="dashboardAutomationTime">09:00 AM IST</span></p>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>IT Helpdesk Summary</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-title">Total Tickets</div>
+                            <div class="stat-value" id="dashTotalTickets">0</div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-title">Open</div>
+                            <div class="stat-value" id="dashOpenTickets">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-title">In Progress</div>
+                            <div class="stat-value" id="dashProgressTickets">0</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-title">Resolved</div>
+                            <div class="stat-value" id="dashResolvedTickets">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel">
+                <div class="panel-header">
+                    <h2>Asset Summary</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-title">Total Assets</div>
+                            <div class="stat-value" id="dashTotalAssets">0</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="stat-title">Available</div>
+                            <div class="stat-value" id="dashAvailableAssets">0</div>
+                        </div>
+                        <div class="stat-card orange">
+                            <div class="stat-title">Assigned</div>
+                            <div class="stat-value" id="dashAssignedAssets">0</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="stat-title">Damaged</div>
+                            <div class="stat-value" id="dashDamagedAssets">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ====================================================
+
+             EMPLOYEES
+
+             ==================================================== -->
+
+        <section id="employees" class="page">
+
+            <h1 class="page-title">Employees</h1>
+
+            <div id="employeeMessage" class="message"></div>
+
+            <!-- ADD / EDIT EMPLOYEE -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2 id="employeeFormTitle">Add Employee</h2>
+
+                    <button
+
+                        type="button"
+
+                        class="btn-secondary"
+
+                        onclick="resetEmployeeForm()">
+
+                        Clear Form
+
+                    </button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <input type="hidden" id="employeeDbId">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Employee ID *</label>
+
+                            <input
+
+                                type="text"
+
+                                id="employeeId"
+
+                                placeholder="Example: 4001">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Name *</label>
+
+                            <input
+
+                                type="text"
+
+                                id="employeeName"
+
+                                placeholder="Employee name">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Designation *</label>
+
+                            <input
+
+                                type="text"
+
+                                id="employeeDesignation"
+
+                                placeholder="Designation">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Department *</label>
+
+                            <input
+
+                                type="text"
+
+                                id="employeeDepartment"
+
+                                placeholder="Department">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Location *</label>
+
+                            <input
+
+                                type="text"
+
+                                id="employeeLocation"
+
+                                placeholder="Location">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Email *</label>
+
+                            <input
+
+                                type="email"
+
+                                id="employeeEmail"
+
+                                placeholder="employee@example.com">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Date of Birth</label>
+
+                            <input
+
+                                type="date"
+
+                                id="employeeDob">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Joining Date</label>
+
+                            <input
+
+                                type="date"
+
+                                id="employeeJoiningDate">
+
+                        </div>
+
+                    </div>
+
+                    <div class="button-row">
+
+                        <button
+
+                            type="button"
+
+                            class="btn-primary"
+
+                            id="employeeSaveButton"
+
+                            onclick="saveEmployee()">
+
+                            Add Employee
+
+                        </button>
+
+                        <button
+
+                            type="button"
+
+                            class="btn-secondary"
+
+                            onclick="resetEmployeeForm()">
+
+                            Cancel
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- EMPLOYEE DIRECTORY -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Employee Directory</h2>
+
+                    <button class="btn-primary" onclick="loadEmployees()">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="search-row">
+
+                        <input
+
+                            type="text"
+
+                            id="employeeSearch"
+
+                            placeholder="Search employee..."
+
+                            onkeydown="if(event.key === 'Enter') searchEmployees()">
+
+                        <button class="btn-primary" onclick="searchEmployees()">
+
+                            Search
+
+                        </button>
+
+                        <button class="btn-secondary" onclick="clearEmployeeSearch()">
+
+                            Clear
+
+                        </button>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Employee ID</th>
+
+                                    <th>Name</th>
+
+                                    <th>Designation</th>
+
+                                    <th>Department</th>
+
+                                    <th>Location</th>
+
+                                    <th>Email</th>
+
+                                    <th>DOB</th>
+
+                                    <th>Joining Date</th>
+
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="employeeTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ====================================================
+             EMPLOYEE PROFILE
+             ==================================================== -->
+
+        <section id="employeeProfile" class="page">
+
+            <h1 class="page-title">Employee Profile</h1>
+
+            <div id="employeeProfileMessage" class="message"></div>
+
+            <div class="panel">
+
+                <div class="employee-profile-header">
+
+                    <div>
+                        <h2 id="profileName">Employee Profile</h2>
+                        <p id="profileDesignation">-</p>
+                    </div>
+
+                    <span id="profileStatus" class="profile-status">ACTIVE</span>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <h3 class="profile-section-title">Employee Information</h3>
+
+                    <div class="profile-grid">
+
+                        <div class="profile-item">
+                            <strong>Database ID</strong>
+                            <span id="profileDbId">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Employee ID</strong>
+                            <span id="profileEmployeeId">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Name</strong>
+                            <span id="profileEmployeeName">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Designation</strong>
+                            <span id="profileEmployeeDesignation">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Department</strong>
+                            <span id="profileEmployeeDepartment">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Location</strong>
+                            <span id="profileEmployeeLocation">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Email</strong>
+                            <span id="profileEmployeeEmail">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Date of Birth</strong>
+                            <span id="profileEmployeeDob">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Joining Date</strong>
+                            <span id="profileEmployeeJoiningDate">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Birthday</strong>
+                            <span id="profileBirthday">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Work Anniversary</strong>
+                            <span id="profileAnniversary">-</span>
+                        </div>
+
+                        <div class="profile-item">
+                            <strong>Employment Status</strong>
+                            <span id="profileEmploymentStatus">ACTIVE</span>
+                        </div>
+
+                    </div>
+
+                    <div class="profile-actions">
+
+                        <button
+                            type="button"
+                            class="btn-primary"
+                            id="profileEditButton"
+                            onclick="editEmployeeFromProfile()">
+                            Edit Employee
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn-secondary"
+                            onclick="closeEmployeeProfile()">
+                            Back to Employees
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ====================================================
+
+             BIRTHDAY
+
+             ==================================================== -->
+
+        <section id="birthday" class="page">
+
+            <h1 class="page-title">Birthday Automation</h1>
+
+            <div id="birthdayMessage" class="message"></div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Send Birthday Test Email</h2>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Employee</label>
+
+                            <select id="birthdayEmployee">
+
+                                <option value="">Select Employee</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="button-row">
+
+                        <button
+
+                            class="btn-orange"
+
+                            onclick="sendBirthday()">
+
+                            Send Birthday Email
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ====================================================
+
+             ANNIVERSARY
+
+             ==================================================== -->
+
+        <section id="anniversary" class="page">
+
+            <h1 class="page-title">Work Anniversary Automation</h1>
+
+            <div id="anniversaryMessage" class="message"></div>
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Send Anniversary Test Email</h2>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Employee</label>
+
+                            <select id="anniversaryEmployee">
+
+                                <option value="">Select Employee</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="button-row">
+
+                        <button
+
+                            class="btn-orange"
+
+                            onclick="sendAnniversary()">
+
+                            Send Anniversary Email
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ====================================================
+
+             EMAIL HISTORY
+
+             ==================================================== -->
+
+        <section id="email-history" class="page">
+
+            <h1 class="page-title">Email History</h1>
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Email Delivery History</h2>
+
+                    <button
+
+                        class="btn-primary"
+
+                        onclick="loadEmailHistory()">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Employee ID</th>
+
+                                    <th>Employee</th>
+
+                                    <th>Email</th>
+
+                                    <th>Type</th>
+
+                                    <th>Subject</th>
+
+                                    <th>Sent At</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="emailHistoryBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ====================================================
+
+             HELPDESK
+
+             ==================================================== -->
+
+        <section id="helpdesk" class="page">
+
+            <h1 class="page-title">IT Helpdesk</h1>
+
+            <div id="helpdeskMessage" class="message"></div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-title">Total Tickets</div>
+
+                    <div class="stat-value" id="helpdeskTotal">0</div>
+
+                </div>
+
+                <div class="stat-card orange">
+
+                    <div class="stat-title">Open</div>
+
+                    <div class="stat-value" id="helpdeskOpen">0</div>
+
+                </div>
+
+                <div class="stat-card">
+
+                    <div class="stat-title">In Progress</div>
+
+                    <div class="stat-value" id="helpdeskProgress">0</div>
+
+                </div>
+
+                <div class="stat-card green">
+
+                    <div class="stat-title">Resolved</div>
+
+                    <div class="stat-value" id="helpdeskResolved">0</div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Create IT Ticket</h2>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Employee ID</label>
+
+                            <input
+
+                                type="text"
+
+                                id="ticketEmployeeId"
+
+                                placeholder="4836">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Employee Name</label>
+
+                            <input
+
+                                type="text"
+
+                                id="ticketEmployeeName"
+
+                                placeholder="Employee name">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Category</label>
+
+                            <select id="ticketCategory">
+
+                                <option value="GENERAL">GENERAL</option>
+
+                                <option value="NETWORK">NETWORK</option>
+
+                                <option value="HARDWARE">HARDWARE</option>
+
+                                <option value="SOFTWARE">SOFTWARE</option>
+
+                                <option value="ACCESS">ACCESS</option>
+
+                                <option value="EMAIL">EMAIL</option>
+
+                                <option value="SECURITY">SECURITY</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Priority</label>
+
+                            <select id="ticketPriority">
+
+                                <option value="LOW">LOW</option>
+
+                                <option value="MEDIUM" selected>MEDIUM</option>
+
+                                <option value="HIGH">HIGH</option>
+
+                                <option value="CRITICAL">CRITICAL</option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Title</label>
+
+                            <input
+
+                                type="text"
+
+                                id="ticketTitle"
+
+                                placeholder="Ticket title">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Assigned To</label>
+
+                            <input
+
+                                type="text"
+
+                                id="ticketAssignedTo"
+
+                                value="IT Support">
+
+                        </div>
+
+                        <div class="form-group full">
+
+                            <label>Description</label>
+
+                            <textarea
+
+                                id="ticketDescription"
+
+                                placeholder="Describe the issue"></textarea>
+
+                        </div>
+
+                    </div>
+
+                    <div class="button-row">
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="createTicket()">
+
+                            Create Ticket
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Tickets</h2>
+
+                    <button
+
+                        class="btn-primary"
+
+                        onclick="loadTickets()">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="search-row">
+
+                        <input
+
+                            id="ticketSearch"
+
+                            type="text"
+
+                            placeholder="Search ticket...">
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="searchTickets()">
+
+                            Search
+
+                        </button>
+
+                        <button
+
+                            class="btn-secondary"
+
+                            onclick="loadTickets()">
+
+                            Clear
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Ticket</th>
+
+                                    <th>Employee</th>
+
+                                    <th>Title</th>
+
+                                    <th>Category</th>
+
+                                    <th>Priority</th>
+
+                                    <th>Status</th>
+
+                                    <th>Assigned To</th>
+
+                                    <th>Created</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="ticketTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ====================================================
+
+             ASSET MANAGEMENT
+
+             ==================================================== -->
+
+        <section id="assets" class="page">
+
+            <h1 class="page-title">IT Asset Management</h1>
+
+            <div id="assetMessage" class="message"></div>
+
+
+
+            <!-- ASSET STATS -->
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+
+                        Total Assets
+
+                    </div>
+
+                    <div class="stat-value"
+
+                         id="assetTotal">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card green">
+
+                    <div class="stat-title">
+
+                        Available
+
+                    </div>
+
+                    <div class="stat-value"
+
+                         id="assetAvailable">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card orange">
+
+                    <div class="stat-title">
+
+                        Assigned
+
+                    </div>
+
+                    <div class="stat-value"
+
+                         id="assetAssigned">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card">
+
+                    <div class="stat-title">
+
+                        Repair
+
+                    </div>
+
+                    <div class="stat-value"
+
+                         id="assetRepair">
+
+                        0
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="stat-card red">
+
+                    <div class="stat-title">
+
+                        Damaged
+
+                    </div>
+
+                    <div class="stat-value"
+
+                         id="assetDamaged">
+
+                        0
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ADD ASSET -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Add New Asset</h2>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+
+                            <label>Asset Tag *</label>
+
+                            <input
+
+                                type="text"
+
+                                id="assetTag"
+
+                                placeholder="LAP-00484">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Asset Type *</label>
+
+                            <select id="assetType">
+
+                                <option value="LAPTOP">
+
+                                    LAPTOP
+
+                                </option>
+
+                                <option value="DESKTOP">
+
+                                    DESKTOP
+
+                                </option>
+
+                                <option value="MONITOR">
+
+                                    MONITOR
+
+                                </option>
+
+                                <option value="PRINTER">
+
+                                    PRINTER
+
+                                </option>
+
+                                <option value="NETWORK">
+
+                                    NETWORK
+
+                                </option>
+
+                                <option value="OTHER">
+
+                                    OTHER
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Brand</label>
+
+                            <input
+
+                                type="text"
+
+                                id="assetBrand"
+
+                                placeholder="Dell">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Model</label>
+
+                            <input
+
+                                type="text"
+
+                                id="assetModel"
+
+                                placeholder="Latitude 5440">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Serial Number</label>
+
+                            <input
+
+                                type="text"
+
+                                id="assetSerial"
+
+                                placeholder="DELL-SR-00484">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Status</label>
+
+                            <select id="assetStatus">
+
+                                <option value="AVAILABLE">
+
+                                    AVAILABLE
+
+                                </option>
+
+                                <option value="ASSIGNED">
+
+                                    ASSIGNED
+
+                                </option>
+
+                                <option value="REPAIR">
+
+                                    REPAIR
+
+                                </option>
+
+                                <option value="DAMAGED">
+
+                                    DAMAGED
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Purchase Date</label>
+
+                            <input
+
+                                type="date"
+
+                                id="assetPurchaseDate">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Warranty Expiry</label>
+
+                            <input
+
+                                type="date"
+
+                                id="assetWarrantyExpiry">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Department</label>
+
+                            <input
+
+                                type="text"
+
+                                id="assetDepartment"
+
+                                value="IT">
+
+                        </div>
+
+
+
+                        <div class="form-group">
+
+                            <label>Location</label>
+
+                            <input
+
+                                type="text"
+
+                                id="assetLocation"
+
+                                value="Chennai">
+
+                        </div>
+
+
+
+                        <div class="form-group full">
+
+                            <label>Notes</label>
+
+                            <textarea
+
+                                id="assetNotes"
+
+                                placeholder="Asset notes"></textarea>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="button-row">
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="createAsset()">
+
+                            Add Asset
+
+                        </button>
+
+                        <button
+
+                            class="btn-secondary"
+
+                            onclick="clearAssetForm()">
+
+                            Clear
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ASSET SEARCH -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Asset Inventory</h2>
+
+                    <button
+
+                        class="btn-primary"
+
+                        onclick="loadAssets()">
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="search-row">
+
+                        <input
+
+                            type="text"
+
+                            id="assetSearch"
+
+                            placeholder="Search asset tag, serial number or employee">
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="searchAssets()">
+
+                            Search
+
+                        </button>
+
+                        <button
+
+                            class="btn-secondary"
+
+                            onclick="loadAssets()">
+
+                            Clear
+
+                        </button>
+
+                    </div>
+
+
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Asset Tag</th>
+
+                                    <th>Type</th>
+
+                                    <th>Brand</th>
+
+                                    <th>Model</th>
+
+                                    <th>Serial</th>
+
+                                    <th>Employee</th>
+
+                                    <th>Department</th>
+
+                                    <th>Location</th>
+
+                                    <th>Status</th>
+
+                                    <th>Warranty</th>
+
+                                    <th>Actions</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="assetTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ASSIGN ASSET -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Assign Asset to Employee</h2>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="form-grid">
+
+                        <!-- ASSET SELECT -->
+
+                        <div class="form-group">
+
+                            <label>Asset</label>
+
+                            <select id="assignAsset">
+
+                                <option value="">
+
+                                    Select Asset
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- EMPLOYEE SELECT -->
+
+                        <div class="form-group">
+
+                            <label>Employee *</label>
+
+                            <select
+
+                                id="assignEmployee"
+
+                                onchange="onEmployeeSelected()">
+
+                                <option value="">
+
+                                    Select Employee
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- AUTOMATIC EMPLOYEE DETAILS -->
+
+                    <div
+
+                        id="selectedEmployeeInfo"
+
+                        class="employee-info">
+
+                        <div class="employee-info-title">
+
+                            Selected Employee Details
+
+                        </div>
+
+
+
+                        <div class="employee-info-grid">
+
+                            <div class="employee-info-item">
+
+                                <strong>Employee ID</strong>
+
+                                <span id="selectedEmployeeId">
+
+                                    -
+
+                                </span>
+
+                            </div>
+
+
+
+                            <div class="employee-info-item">
+
+                                <strong>Name</strong>
+
+                                <span id="selectedEmployeeName">
+
+                                    -
+
+                                </span>
+
+                            </div>
+
+
+
+                            <div class="employee-info-item">
+
+                                <strong>Department</strong>
+
+                                <span id="selectedEmployeeDepartment">
+
+                                    -
+
+                                </span>
+
+                            </div>
+
+
+
+                            <div class="employee-info-item">
+
+                                <strong>Location</strong>
+
+                                <span id="selectedEmployeeLocation">
+
+                                    -
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="button-row">
+
+                        <button
+
+                            class="btn-orange"
+
+                            onclick="assignAsset()">
+
+                            Assign Asset
+
+                        </button>
+
+                        <button
+
+                            class="btn-secondary"
+
+                            onclick="clearAssignmentForm()">
+
+                            Clear
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WARRANTY -->
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <h2>Warranty Expiring Soon</h2>
+
+                    <button
+
+                        class="btn-warning"
+
+                        onclick="loadWarrantyAssets()">
+
+                        Check 30 Days
+
+                    </button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="table-container">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>Asset Tag</th>
+
+                                    <th>Type</th>
+
+                                    <th>Brand</th>
+
+                                    <th>Model</th>
+
+                                    <th>Employee</th>
+
+                                    <th>Warranty Expiry</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="warrantyTableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+
+<!-- ============================================================
+
+     JAVASCRIPT
+
+     ============================================================ -->
+
+<script>
+
+    const API = "";
+
+    let employees = [];
+
+    let assets = [];
+
+
+
+    /* ============================================================
+
+       COMMON
+
+       ============================================================ */
+
+    function showMessage(elementId, message, type) {
+
+        const element = document.getElementById(elementId);
+
+        if (!element) {
+
+            return;
+
+        }
+
+        element.innerText = message;
+
+        element.className = "message " + type;
+
+        element.style.display = "block";
+
+        setTimeout(function () {
+
+            element.style.display = "none";
+
+        }, 5000);
+
+    }
+
+
+
+    function escapeHtml(value) {
+
+        if (value === null || value === undefined) {
+
+            return "";
+
+        }
+
+        return String(value)
+
+            .replace(/&/g, "&amp;")
+
+            .replace(/</g, "&lt;")
+
+            .replace(/>/g, "&gt;")
+
+            .replace(/"/g, "&quot;")
+
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+
+    function formatDate(value) {
+
+        if (!value) {
+
+            return "-";
+
+        }
+
+        return String(value).substring(0, 10);
+
+    }
+
+
+
+    function formatDateTime(value) {
+
+        if (!value) {
+
+            return "-";
+
+        }
+
+        return String(value).replace("T", " ").substring(0, 19);
+
+    }
+
+
+
+    /* ============================================================
+
+       NAVIGATION
+
+       ============================================================ */
+
+    function showPage(pageId, element) {
+
+        document.querySelectorAll(".page").forEach(function(page) {
+
+            page.classList.remove("active");
+
+        });
+
+
+
+        document.querySelectorAll(".nav-item").forEach(function(item) {
+
+            item.classList.remove("active");
+
+        });
+
+
+
+        const page = document.getElementById(pageId);
+
+        if (page) {
+
+            page.classList.add("active");
+
+        }
+
+
+
+        if (element) {
+
+            element.classList.add("active");
+
+        }
+
+
+
+        const titles = {
+
+            dashboard: "CeipalHR Enterprise",
+
+            employees: "Employee Management",
+
+            employeeProfile: "Employee Profile",
+            birthday: "Birthday Automation",
+
+            anniversary: "Work Anniversary Automation",
+
+            "email-history": "Email History",
+
+            helpdesk: "IT Helpdesk",
+
+            assets: "IT Asset Management"
+
+        };
+
+
+
+        document.getElementById("topbarTitle").innerText =
+
+            titles[pageId] || "CeipalHR Enterprise";
+
+
+
+        if (pageId === "dashboard") {
+
+            loadDashboard();
+
+            loadHelpdeskStats();
+
+            loadAssetStats();
+
+        }
+
+
+
+        if (pageId === "employees") {
+
+            loadEmployees();
+
+        }
+
+
+
+        
+        if (pageId === "employeeProfile") {
+            // Profile data is loaded when an employee is selected.
+        }
+
+        if (pageId === "birthday") {
+
+            populateAutomationEmployees();
+
+        }
+
+
+
+        if (pageId === "anniversary") {
+
+            populateAutomationEmployees();
+
+        }
+
+
+
+        if (pageId === "email-history") {
+
+            loadEmailHistory();
+
+        }
+
+
+
+        if (pageId === "helpdesk") {
+
+            loadHelpdeskStats();
+
+            loadTickets();
+
+        }
+
+
+
+        if (pageId === "assets") {
+
+            loadAssetStats();
+
+            loadAssets();
+
+            loadEmployeesForAssetAssignment();
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       EMPLOYEES
+
+       ============================================================ */
+
+    async function loadEmployees() {
+
+        try {
+
+            const response =
+
+                await fetch(API + "/api/employees");
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Failed to load employees: HTTP " +
+
+                    response.status
+
+                );
+
+            }
+
+            const data = await response.json();
+
+            employees = Array.isArray(data) ? data : [];
+
+            renderEmployees(employees);
+
+            populateEmployeeDropdowns();
+
+        } catch (error) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function renderEmployees(list) {
+
+        const body =
+
+            document.getElementById("employeeTableBody");
+
+        body.innerHTML = "";
+
+        if (!list || list.length === 0) {
+
+            body.innerHTML = `
+
+                <tr>
+
+                    <td colspan="10" style="text-align\:center;">
+
+                        No employees found
+
+                    </td>
+
+                </tr>
+
+            `;
+
+            return;
+
+        }
+
+        list.forEach(function(employee) {
+
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+
+                <td>${escapeHtml(employee.id)}</td>
+
+                <td>${escapeHtml(employee.employeeId)}</td>
+
+                <td>${escapeHtml(employee.name)}</td>
+
+                <td>${escapeHtml(employee.designation)}</td>
+
+                <td>${escapeHtml(employee.department)}</td>
+
+                <td>${escapeHtml(employee.location)}</td>
+
+                <td>${escapeHtml(employee.email)}</td>
+
+                <td>${escapeHtml(formatDate(employee.dob))}</td>
+
+                <td>${escapeHtml(formatDate(employee.joiningDate))}</td>
+
+                <td>
+
+                    <div class="employee-actions">
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="viewEmployeeProfile(${employee.id})">
+
+                            Profile
+
+                        </button>
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="editEmployee(${employee.id})">
+
+                            Edit
+
+                        </button>
+
+                        <button
+
+                            class="btn-danger"
+
+                            onclick="deleteEmployee(${employee.id})">
+
+                            Delete
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+            body.appendChild(row);
+
+        });
+
+    }
+
+
+
+    async function viewEmployeeProfile(id) {
+
+        try {
+
+            let employee = employees.find(function(item) {
+                return Number(item.id) === Number(id);
+            });
+
+            try {
+
+                const response =
+                    await fetch(API + "/api/employees/" + id);
+
+                if (response.ok) {
+                    employee = await response.json();
+                }
+
+            } catch (profileError) {
+
+                // Use the employee already loaded in the directory.
+
+            }
+
+            if (!employee) {
+                throw new Error("Employee details not found.");
+            }
+
+            document.getElementById("profileDbId").innerText =
+                employee.id || "-";
+
+            document.getElementById("profileEmployeeId").innerText =
+                employee.employeeId || "-";
+
+            document.getElementById("profileEmployeeName").innerText =
+                employee.name || "-";
+
+            document.getElementById("profileEmployeeDesignation").innerText =
+                employee.designation || "-";
+
+            document.getElementById("profileEmployeeDepartment").innerText =
+                employee.department || "-";
+
+            document.getElementById("profileEmployeeLocation").innerText =
+                employee.location || "-";
+
+            document.getElementById("profileEmployeeEmail").innerText =
+                employee.email || "-";
+
+            document.getElementById("profileEmployeeDob").innerText =
+                formatDate(employee.dob);
+
+            document.getElementById("profileEmployeeJoiningDate").innerText =
+                formatDate(employee.joiningDate);
+
+            document.getElementById("profileBirthday").innerText =
+                formatMonthDay(employee.dob);
+
+            document.getElementById("profileAnniversary").innerText =
+                formatMonthDay(employee.joiningDate);
+
+            document.getElementById("profileEmploymentStatus").innerText =
+                "ACTIVE";
+
+            document.getElementById("profileStatus").innerText =
+                "ACTIVE";
+
+            document.getElementById("profileName").innerText =
+                employee.name || "Employee Profile";
+
+            document.getElementById("profileDesignation").innerText =
+                employee.designation || "-";
+
+            document.getElementById("profileEditButton").dataset.employeeId =
+                employee.id || "";
+
+            window.currentProfileEmployee = employee;
+
+            showPage("employeeProfile");
+
+        } catch (error) {
+
+            showMessage(
+                "employeeMessage",
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+
+    function formatMonthDay(value) {
+
+        if (!value) {
+            return "-";
+        }
+
+        const date = String(value).substring(0, 10);
+
+        if (date.length < 10) {
+            return date;
+        }
+
+        return date.substring(5, 10);
+
+    }
+
+
+
+    function editEmployeeFromProfile() {
+
+        const employee =
+            window.currentProfileEmployee;
+
+        if (!employee || !employee.id) {
+            return;
+        }
+
+        showPage("employees");
+
+        editEmployee(employee.id);
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+
+    function closeEmployeeProfile() {
+
+        showPage("employees");
+
+    }
+
+
+
+    async function searchEmployees() {
+
+        const keyword =
+
+            document.getElementById("employeeSearch").value.trim();
+
+        if (!keyword) {
+
+            loadEmployees();
+
+            return;
+
+        }
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/employees/search?keyword=" +
+
+                    encodeURIComponent(keyword)
+
+                );
+
+            if (!response.ok) {
+
+                throw new Error("Employee search failed");
+
+            }
+
+            const data = await response.json();
+
+            employees = Array.isArray(data) ? data : [];
+
+            renderEmployees(employees);
+
+        } catch (error) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function clearEmployeeSearch() {
+
+        document.getElementById("employeeSearch").value = "";
+
+        loadEmployees();
+
+    }
+
+
+
+    async function saveEmployee() {
+
+        const dbId =
+
+            document.getElementById("employeeDbId").value.trim();
+
+        const employee = {
+
+            employeeId: document.getElementById("employeeId").value.trim(),
+
+            name: document.getElementById("employeeName").value.trim(),
+
+            designation: document.getElementById("employeeDesignation").value.trim(),
+
+            department: document.getElementById("employeeDepartment").value.trim(),
+
+            location: document.getElementById("employeeLocation").value.trim(),
+
+            email: document.getElementById("employeeEmail").value.trim(),
+
+            dob: document.getElementById("employeeDob").value || null,
+
+            joiningDate: document.getElementById("employeeJoiningDate").value || null
+
+        };
+
+        if (!employee.employeeId ||
+
+            !employee.name ||
+
+            !employee.designation ||
+
+            !employee.department ||
+
+            !employee.location ||
+
+            !employee.email) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                "Please fill all required employee fields.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+        try {
+
+            const isEdit = dbId !== "";
+
+            const url = isEdit
+
+                ? API + "/api/employees/" + dbId
+
+                : API + "/api/employees";
+
+            const method = isEdit ? "PUT" : "POST";
+
+            const response = await fetch(url, {
+
+                method: method,
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(employee)
+
+            });
+
+            if (!response.ok) {
+
+                const errorText = await response.text();
+
+                throw new Error(
+
+                    "Employee save failed: HTTP " +
+
+                    response.status +
+
+                    (errorText ? " " + errorText : "")
+
+                );
+
+            }
+
+            await response.json();
+
+            showMessage(
+
+                "employeeMessage",
+
+                isEdit
+
+                    ? "Employee updated successfully."
+
+                    : "Employee added successfully.",
+
+                "success"
+
+            );
+
+            resetEmployeeForm();
+
+            await loadEmployees();
+
+        } catch (error) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function editEmployee(id) {
+
+        const employee = employees.find(function(item) {
+
+            return Number(item.id) === Number(id);
+
+        });
+
+        if (!employee) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                "Employee details not found.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+        document.getElementById("employeeDbId").value = employee.id || "";
+
+        document.getElementById("employeeId").value = employee.employeeId || "";
+
+        document.getElementById("employeeName").value = employee.name || "";
+
+        document.getElementById("employeeDesignation").value = employee.designation || "";
+
+        document.getElementById("employeeDepartment").value = employee.department || "";
+
+        document.getElementById("employeeLocation").value = employee.location || "";
+
+        document.getElementById("employeeEmail").value = employee.email || "";
+
+        document.getElementById("employeeDob").value = employee.dob ? String(employee.dob).substring(0, 10) : "";
+
+        document.getElementById("employeeJoiningDate").value = employee.joiningDate ? String(employee.joiningDate).substring(0, 10) : "";
+
+        document.getElementById("employeeFormTitle").innerText = "Edit Employee";
+
+        document.getElementById("employeeSaveButton").innerText = "Update Employee";
+
+        document.getElementById("employeeFormTitle").scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "start"
+
+        });
+
+    }
+
+
+
+    async function deleteEmployee(id) {
+
+        const employee = employees.find(function(item) {
+
+            return Number(item.id) === Number(id);
+
+        });
+
+        if (!employee) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                "Employee not found.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+        const confirmed = confirm(
+            'Delete employee "' +
+            employee.name +
+            '"?\n\nThis action cannot be undone.'
+        );
+
+        if (!confirmed) {
+
+            return;
+
+        }
+
+        try {
+
+            const response = await fetch(
+
+                API + "/api/employees/" + id,
+
+                { method: "DELETE" }
+
+            );
+
+            if (!response.ok) {
+
+                const errorText = await response.text();
+
+                throw new Error(
+
+                    "Employee deletion failed: HTTP " +
+
+                    response.status +
+
+                    (errorText ? " " + errorText : "")
+
+                );
+
+            }
+
+            showMessage(
+
+                "employeeMessage",
+
+                "Employee deleted successfully.",
+
+                "success"
+
+            );
+
+            resetEmployeeForm();
+
+            await loadEmployees();
+
+        } catch (error) {
+
+            showMessage(
+
+                "employeeMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function resetEmployeeForm() {
+
+        document.getElementById("employeeDbId").value = "";
+
+        document.getElementById("employeeId").value = "";
+
+        document.getElementById("employeeName").value = "";
+
+        document.getElementById("employeeDesignation").value = "";
+
+        document.getElementById("employeeDepartment").value = "";
+
+        document.getElementById("employeeLocation").value = "";
+
+        document.getElementById("employeeEmail").value = "";
+
+        document.getElementById("employeeDob").value = "";
+
+        document.getElementById("employeeJoiningDate").value = "";
+
+        document.getElementById("employeeFormTitle").innerText = "Add Employee";
+
+        document.getElementById("employeeSaveButton").innerText = "Add Employee";
+
+    }
+
+
+
+    function populateEmployeeDropdowns() {
+
+        populateAutomationEmployees();
+
+        populateAssetEmployeeDropdown();
+
+    }
+
+
+
+    function populateAutomationEmployees() {
+
+        const birthday = document.getElementById("birthdayEmployee");
+
+        const anniversary = document.getElementById("anniversaryEmployee");
+
+        if (birthday) {
+
+            const current = birthday.value;
+
+            birthday.innerHTML = '<option value="">Select Employee</option>';
+
+            employees.forEach(function(employee) {
+
+                const option = document.createElement("option");
+
+                option.value = employee.id;
+
+                option.textContent = employee.employeeId + " - " + employee.name;
+
+                birthday.appendChild(option);
+
+            });
+
+            birthday.value = current;
+
+        }
+
+        if (anniversary) {
+
+            const current = anniversary.value;
+
+            anniversary.innerHTML = '<option value="">Select Employee</option>';
+
+            employees.forEach(function(employee) {
+
+                const option = document.createElement("option");
+
+                option.value = employee.id;
+
+                option.textContent = employee.employeeId + " - " + employee.name;
+
+                anniversary.appendChild(option);
+
+            });
+
+            anniversary.value = current;
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       DASHBOARD
+
+       ============================================================ */
+
+    async function loadDashboard() {
+
+        try {
+
+            const hrResponse =
+                await fetch(
+                    API + "/api/hr-statistics/summary"
+                );
+
+            if (!hrResponse.ok) {
+                throw new Error("HR Statistics API failed");
+            }
+
+            const hrData = await hrResponse.json();
+
+            const employeesElement =
+                document.getElementById("dashboardEmployees");
+            if (employeesElement) {
+                employeesElement.innerText =
+                    hrData.totalEmployees || 0;
+            }
+
+            const birthdaysElement =
+                document.getElementById("dashboardBirthdays");
+            if (birthdaysElement) {
+                birthdaysElement.innerText =
+                    hrData.todayBirthdays || 0;
+            }
+
+            const anniversariesElement =
+                document.getElementById("dashboardAnniversaries");
+            if (anniversariesElement) {
+                anniversariesElement.innerText =
+                    hrData.todayAnniversaries || 0;
+            }
+
+            const birthdayEmailsElement =
+                document.getElementById("dashboardBirthdayEmails");
+            if (birthdayEmailsElement) {
+                birthdayEmailsElement.innerText =
+                    hrData.birthdayEmailsSent || 0;
+            }
+
+            const anniversaryEmailsElement =
+                document.getElementById("dashboardAnniversaryEmails");
+            if (anniversaryEmailsElement) {
+                anniversaryEmailsElement.innerText =
+                    hrData.anniversaryEmailsSent || 0;
+            }
+
+            const totalEmailsElement =
+                document.getElementById("dashboardTotalEmails");
+            if (totalEmailsElement) {
+                totalEmailsElement.innerText =
+                    hrData.totalEmailsSent || 0;
+            }
+
+            const failedEmailsElement =
+                document.getElementById("dashboardFailedEmails");
+            if (failedEmailsElement) {
+                failedEmailsElement.innerText =
+                    hrData.failedEmails || 0;
+            }
+
+            const automationElement =
+                document.getElementById("dashboardAutomation");
+            if (automationElement) {
+                automationElement.innerText =
+                    hrData.automationStatus || "-";
+            }
+
+            const automationTextElement =
+                document.getElementById("dashboardAutomationText");
+            if (automationTextElement) {
+                automationTextElement.innerText =
+                    "Birthday and work anniversary emails are automated.";
+            }
+
+            const automationTimeElement =
+                document.getElementById("dashboardAutomationTime");
+            if (automationTimeElement) {
+                automationTimeElement.innerText =
+                    hrData.automationTime || "09:00 AM IST";
+            }
+
+            const response =
+                await fetch(
+                    API + "/api/dashboard/stats"
+                );
+
+            if (!response.ok) {
+                throw new Error("Dashboard API failed");
+            }
+
+            const data = await response.json();
+
+            const emailsSentElement =
+                document.getElementById("dashboardEmailsSent");
+            if (emailsSentElement) {
+                emailsSentElement.innerText =
+                    data.emailsSentToday || 0;
+            }
+
+            const emailsFailedElement =
+                document.getElementById("dashboardEmailsFailed");
+            if (emailsFailedElement) {
+                emailsFailedElement.innerText =
+                    data.emailsFailedToday || 0;
+            }
+
+            console.log(
+                "CeipalHR Dashboard loaded successfully",
+                hrData
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Dashboard loading error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    /* ============================================================
+
+       BIRTHDAY
+
+       ============================================================ */
+
+    async function sendBirthday() {
+
+        const id =
+
+            document.getElementById(
+
+                "birthdayEmployee"
+
+            ).value;
+
+
+
+        if (!id) {
+
+            showMessage(
+
+                "birthdayMessage",
+
+                "Please select an employee.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/automation/birthday/" +
+
+                    encodeURIComponent(id),
+
+                    {
+
+                        method: "POST"
+
+                    }
+
+                );
+
+
+
+            const text =
+
+                await response.text();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(text);
+
+            }
+
+
+
+            showMessage(
+
+                "birthdayMessage",
+
+                text || "Birthday email sent successfully.",
+
+                "success"
+
+            );
+
+
+
+            loadDashboard();
+
+        } catch (error) {
+
+            showMessage(
+
+                "birthdayMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       ANNIVERSARY
+
+       ============================================================ */
+
+    async function sendAnniversary() {
+
+        const id =
+
+            document.getElementById(
+
+                "anniversaryEmployee"
+
+            ).value;
+
+
+
+        if (!id) {
+
+            showMessage(
+
+                "anniversaryMessage",
+
+                "Please select an employee.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/automation/anniversary/" +
+
+                    encodeURIComponent(id),
+
+                    {
+
+                        method: "POST"
+
+                    }
+
+                );
+
+
+
+            const text =
+
+                await response.text();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(text);
+
+            }
+
+
+
+            showMessage(
+
+                "anniversaryMessage",
+
+                text || "Anniversary email sent successfully.",
+
+                "success"
+
+            );
+
+
+
+            loadDashboard();
+
+        } catch (error) {
+
+            showMessage(
+
+                "anniversaryMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       EMAIL HISTORY
+
+       ============================================================ */
+
+    async function loadEmailHistory() {
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/email-history"
+
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Failed to load email history"
+
+                );
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            const body =
+
+                document.getElementById(
+
+                    "emailHistoryBody"
+
+                );
+
+
+
+            body.innerHTML = "";
+
+
+
+            data.forEach(function(item) {
+
+                const row =
+
+                    document.createElement("tr");
+
+
+
+                let statusClass =
+
+                    item.status === "SENT"
+
+                        ? "badge-resolved"
+
+                        : "badge-damaged";
+
+
+
+                row.innerHTML = `
+
+                    <td>${escapeHtml(item.id)}</td>
+
+                    <td>${escapeHtml(item.employeeId)}</td>
+
+                    <td>${escapeHtml(item.employeeName)}</td>
+
+                    <td>${escapeHtml(item.email)}</td>
+
+                    <td>${escapeHtml(item.emailType)}</td>
+
+                    <td>${escapeHtml(item.subject)}</td>
+
+                    <td>${escapeHtml(formatDateTime(item.sentAt))}</td>
+
+                    <td>
+
+                        <span class="badge ${statusClass}">
+
+                            ${escapeHtml(item.status)}
+
+                        </span>
+
+                    </td>
+
+                `;
+
+
+
+                body.appendChild(row);
+
+            });
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       HELPDESK
+
+       ============================================================ */
+
+    async function createTicket() {
+
+        const payload = {
+
+            employeeId:
+
+                document.getElementById(
+
+                    "ticketEmployeeId"
+
+                ).value.trim(),
+
+            employeeName:
+
+                document.getElementById(
+
+                    "ticketEmployeeName"
+
+                ).value.trim(),
+
+            title:
+
+                document.getElementById(
+
+                    "ticketTitle"
+
+                ).value.trim(),
+
+            description:
+
+                document.getElementById(
+
+                    "ticketDescription"
+
+                ).value.trim(),
+
+            category:
+
+                document.getElementById(
+
+                    "ticketCategory"
+
+                ).value,
+
+            priority:
+
+                document.getElementById(
+
+                    "ticketPriority"
+
+                ).value,
+
+            assignedTo:
+
+                document.getElementById(
+
+                    "ticketAssignedTo"
+
+                ).value.trim()
+
+        };
+
+
+
+        if (!payload.title) {
+
+            showMessage(
+
+                "helpdeskMessage",
+
+                "Ticket title is required.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/helpdesk/tickets",
+
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+
+                                "application/json"
+
+                        },
+
+                        body: JSON.stringify(payload)
+
+                    }
+
+                );
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    data.message ||
+
+                    data.error ||
+
+                    "Failed to create ticket"
+
+                );
+
+            }
+
+
+
+            showMessage(
+
+                "helpdeskMessage",
+
+                "Ticket created successfully: " +
+
+                data.ticketNumber,
+
+                "success"
+
+            );
+
+
+
+            document.getElementById(
+
+                "ticketTitle"
+
+            ).value = "";
+
+
+
+            document.getElementById(
+
+                "ticketDescription"
+
+            ).value = "";
+
+
+
+            loadTickets();
+
+            loadHelpdeskStats();
+
+        } catch (error) {
+
+            showMessage(
+
+                "helpdeskMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    async function loadTickets() {
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/helpdesk/tickets"
+
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Failed to load tickets"
+
+                );
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            renderTickets(
+
+                Array.isArray(data)
+
+                    ? data
+
+                    : []
+
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+
+
+    function renderTickets(list) {
+
+        const body =
+
+            document.getElementById(
+
+                "ticketTableBody"
+
+            );
+
+
+
+        body.innerHTML = "";
+
+
+
+        list.forEach(function(ticket) {
+
+            const row =
+
+                document.createElement("tr");
+
+
+
+            let statusClass =
+
+                "badge-open";
+
+
+
+            if (ticket.status === "IN_PROGRESS") {
+
+                statusClass = "badge-progress";
+
+            }
+
+            if (ticket.status === "RESOLVED") {
+
+                statusClass = "badge-resolved";
+
+            }
+
+            if (ticket.status === "CLOSED") {
+
+                statusClass = "badge-closed";
+
+            }
+
+
+
+            row.innerHTML = `
+
+                <td>${escapeHtml(ticket.ticketNumber)}</td>
+
+                <td>
+
+                    ${escapeHtml(ticket.employeeName)}
+
+                    <br>
+
+                    <small>
+
+                        ${escapeHtml(ticket.employeeId)}
+
+                    </small>
+
+                </td>
+
+                <td>${escapeHtml(ticket.title)}</td>
+
+                <td>${escapeHtml(ticket.category)}</td>
+
+                <td>${escapeHtml(ticket.priority)}</td>
+
+                <td>
+
+                    <span class="badge ${statusClass}">
+
+                        ${escapeHtml(ticket.status)}
+
+                    </span>
+
+                </td>
+
+                <td>${escapeHtml(ticket.assignedTo)}</td>
+
+                <td>${escapeHtml(formatDateTime(ticket.createdAt))}</td>
+
+            `;
+
+
+
+            body.appendChild(row);
+
+        });
+
+    }
+
+
+
+    async function searchTickets() {
+
+        const keyword =
+
+            document.getElementById(
+
+                "ticketSearch"
+
+            ).value.trim();
+
+
+
+        if (!keyword) {
+
+            loadTickets();
+
+            return;
+
+        }
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/helpdesk/search?keyword=" +
+
+                    encodeURIComponent(keyword)
+
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Ticket search failed"
+
+                );
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            renderTickets(
+
+                Array.isArray(data)
+
+                    ? data
+
+                    : []
+
+            );
+
+        } catch (error) {
+
+            showMessage(
+
+                "helpdeskMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    async function loadHelpdeskStats() {
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/helpdesk/stats"
+
+                );
+
+
+
+            if (!response.ok) {
+
+                return;
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            document.getElementById(
+
+                "helpdeskTotal"
+
+            ).innerText =
+
+                data.totalTickets || 0;
+
+
+
+            document.getElementById(
+
+                "helpdeskOpen"
+
+            ).innerText =
+
+                data.openTickets || 0;
+
+
+
+            document.getElementById(
+
+                "helpdeskProgress"
+
+            ).innerText =
+
+                data.inProgressTickets || 0;
+
+
+
+            document.getElementById(
+
+                "helpdeskResolved"
+
+            ).innerText =
+
+                data.resolvedTickets || 0;
+
+
+
+            document.getElementById(
+
+                "dashTotalTickets"
+
+            ).innerText =
+
+                data.totalTickets || 0;
+
+
+
+            document.getElementById(
+
+                "dashOpenTickets"
+
+            ).innerText =
+
+                data.openTickets || 0;
+
+
+
+            document.getElementById(
+
+                "dashProgressTickets"
+
+            ).innerText =
+
+                data.inProgressTickets || 0;
+
+
+
+            document.getElementById(
+
+                "dashResolvedTickets"
+
+            ).innerText =
+
+                data.resolvedTickets || 0;
+
+
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       ASSET MANAGEMENT
+
+       ============================================================ */
+
+    async function loadAssetStats() {
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/assets/stats"
+
+                );
+
+
+
+            if (!response.ok) {
+
+                return;
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            document.getElementById(
+
+                "assetTotal"
+
+            ).innerText =
+
+                data.totalAssets || 0;
+
+
+
+            document.getElementById(
+
+                "assetAvailable"
+
+            ).innerText =
+
+                data.availableAssets || 0;
+
+
+
+            document.getElementById(
+
+                "assetAssigned"
+
+            ).innerText =
+
+                data.assignedAssets || 0;
+
+
+
+            document.getElementById(
+
+                "assetDamaged"
+
+            ).innerText =
+
+                data.damagedAssets || 0;
+
+
+
+            document.getElementById(
+
+                "dashTotalAssets"
+
+            ).innerText =
+
+                data.totalAssets || 0;
+
+
+
+            document.getElementById(
+
+                "dashAvailableAssets"
+
+            ).innerText =
+
+                data.availableAssets || 0;
+
+
+
+            document.getElementById(
+
+                "dashAssignedAssets"
+
+            ).innerText =
+
+                data.assignedAssets || 0;
+
+
+
+            document.getElementById(
+
+                "dashDamagedAssets"
+
+            ).innerText =
+
+                data.damaged ?? data.damagedAssets ?? 0;
+
+
+
+        } catch (error) {
+
+            console.error(error);
+
+        }
+
+    }
+
+
+
+    async function loadAssets() {
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/assets"
+
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Failed to load assets"
+
+                );
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            assets =
+
+                Array.isArray(data)
+
+                    ? data
+
+                    : [];
+
+
+
+            renderAssets(assets);
+
+            populateAssetDropdown();
+
+            loadAssetStats();
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function renderAssets(list) {
+
+        const body =
+
+            document.getElementById(
+
+                "assetTableBody"
+
+            );
+
+
+
+        body.innerHTML = "";
+
+
+
+        list.forEach(function(asset) {
+
+            const row =
+
+                document.createElement("tr");
+
+
+
+            const status =
+
+                asset.status || "AVAILABLE";
+
+
+
+            let statusClass =
+
+                "badge-available";
+
+
+
+            if (status === "ASSIGNED") {
+
+                statusClass = "badge-assigned";
+
+            }
+
+            if (status === "REPAIR") {
+
+                statusClass = "badge-repair";
+
+            }
+
+            if (status === "DAMAGED") {
+
+                statusClass = "badge-damaged";
+
+            }
+
+            if (status === "RETIRED") {
+
+                statusClass = "badge-retired";
+
+            }
+
+            if (status === "RETURNED") {
+
+                statusClass = "badge-returned";
+
+            }
+
+
+
+            row.innerHTML = `
+
+                <td>${escapeHtml(asset.id)}</td>
+
+                <td>
+
+                    <strong>
+
+                        ${escapeHtml(asset.assetTag)}
+
+                    </strong>
+
+                </td>
+
+                <td>${escapeHtml(asset.assetType)}</td>
+
+                <td>${escapeHtml(asset.brand)}</td>
+
+                <td>${escapeHtml(asset.model)}</td>
+
+                <td>${escapeHtml(asset.serialNumber)}</td>
+
+                <td>
+
+                    ${escapeHtml(asset.employeeName || "-")}
+
+                    ${
+
+                        asset.employeeId
+
+                            ? "<br><small>" +
+
+                              escapeHtml(asset.employeeId) +
+
+                              "</small>"
+
+                            : ""
+
+                    }
+
+                </td>
+
+                <td>${escapeHtml(asset.department || "-")}</td>
+
+                <td>${escapeHtml(asset.location || "-")}</td>
+
+                <td>
+
+                    <span class="badge ${statusClass}">
+
+                        ${escapeHtml(status)}
+
+                    </span>
+
+                </td>
+
+                <td>
+
+                    ${escapeHtml(
+
+                        formatDate(asset.warrantyExpiry)
+
+                    )}
+
+                </td>
+
+                <td>
+
+                    <div class="asset-actions">
+
+                        <button
+
+                            class="btn-primary"
+
+                            onclick="openAssignForAsset(${asset.id})">
+
+                            Assign
+
+                        </button>
+
+                        <button
+
+                            class="btn-warning"
+
+                            onclick="assetLifecycle(${asset.id}, 'return')">
+
+                            Return
+
+                        </button>
+
+                        <button
+
+                            class="btn-success"
+
+                            onclick="assetLifecycle(${asset.id}, 'available')">
+
+                            Available
+
+                        </button>
+
+                        <button
+
+                            class="btn-warning"
+
+                            onclick="assetLifecycle(${asset.id}, 'repair')">
+
+                            Repair
+
+                        </button>
+
+                        <button
+
+                            class="btn-danger"
+
+                            onclick="assetLifecycle(${asset.id}, 'damaged')">
+
+                            Damaged
+
+                        </button>
+
+                        <button
+
+                            class="btn-secondary"
+
+                            onclick="assetLifecycle(${asset.id}, 'retire')">
+
+                            Retire
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+
+            body.appendChild(row);
+
+        });
+
+    }
+
+
+
+    /* ============================================================
+
+       ASSET EMPLOYEE DROPDOWN
+
+       ============================================================ */
+
+    async function loadEmployeesForAssetAssignment() {
+
+        try {
+
+            if (employees.length === 0) {
+
+                const response =
+
+                    await fetch(
+
+                        API + "/api/employees"
+
+                    );
+
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+
+                        "Failed to load employees"
+
+                    );
+
+                }
+
+
+
+                const data =
+
+                    await response.json();
+
+
+
+                employees =
+
+                    Array.isArray(data)
+
+                        ? data
+
+                        : [];
+
+            }
+
+
+
+            populateAssetEmployeeDropdown();
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function populateAssetEmployeeDropdown() {
+
+        const select =
+
+            document.getElementById(
+
+                "assignEmployee"
+
+            );
+
+
+
+        if (!select) {
+
+            return;
+
+        }
+
+
+
+        const current =
+
+            select.value;
+
+
+
+        select.innerHTML =
+
+            '<option value="">Select Employee</option>';
+
+
+
+        employees.forEach(function(employee) {
+
+            const option =
+
+                document.createElement("option");
+
+
+
+            /*
+
+             * Store the employee's database ID.
+
+             * We will use the complete employee object
+
+             * from the employees array when selected.
+
+             */
+
+            option.value =
+
+                employee.id;
+
+
+
+            option.textContent =
+
+                employee.employeeId +
+
+                " - " +
+
+                employee.name;
+
+
+
+            select.appendChild(option);
+
+        });
+
+
+
+        if (current) {
+
+            select.value = current;
+
+        }
+
+    }
+
+
+
+    function onEmployeeSelected() {
+
+        const selectedId =
+
+            document.getElementById(
+
+                "assignEmployee"
+
+            ).value;
+
+
+
+        const info =
+
+            document.getElementById(
+
+                "selectedEmployeeInfo"
+
+            );
+
+
+
+        if (!selectedId) {
+
+            info.style.display = "none";
+
+            document.getElementById(
+
+                "selectedEmployeeId"
+
+            ).innerText = "-";
+
+            document.getElementById(
+
+                "selectedEmployeeName"
+
+            ).innerText = "-";
+
+            document.getElementById(
+
+                "selectedEmployeeDepartment"
+
+            ).innerText = "-";
+
+            document.getElementById(
+
+                "selectedEmployeeLocation"
+
+            ).innerText = "-";
+
+            return;
+
+        }
+
+
+
+        const employee =
+
+            employees.find(function(item) {
+
+                return String(item.id) ===
+
+                    String(selectedId);
+
+            });
+
+
+
+        if (!employee) {
+
+            return;
+
+        }
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeId"
+
+        ).innerText =
+
+            employee.employeeId || "-";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeName"
+
+        ).innerText =
+
+            employee.name || "-";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeDepartment"
+
+        ).innerText =
+
+            employee.department || "-";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeLocation"
+
+        ).innerText =
+
+            employee.location || "-";
+
+
+
+        info.style.display = "block";
+
+    }
+
+
+
+    /* ============================================================
+
+       ASSET DROPDOWN
+
+       ============================================================ */
+
+    function populateAssetDropdown() {
+
+        const select =
+
+            document.getElementById(
+
+                "assignAsset"
+
+            );
+
+
+
+        if (!select) {
+
+            return;
+
+        }
+
+
+
+        const current =
+
+            select.value;
+
+
+
+        select.innerHTML =
+
+            '<option value="">Select Asset</option>';
+
+
+
+        assets.forEach(function(asset) {
+
+            const option =
+
+                document.createElement("option");
+
+
+
+            option.value =
+
+                asset.id;
+
+
+
+            option.textContent =
+
+                asset.assetTag +
+
+                " - " +
+
+                asset.assetType +
+
+                " - " +
+
+                (asset.brand || "");
+
+
+
+            select.appendChild(option);
+
+        });
+
+
+
+        if (current) {
+
+            select.value = current;
+
+        }
+
+    }
+
+
+
+    function openAssignForAsset(assetId) {
+
+        const select =
+
+            document.getElementById(
+
+                "assignAsset"
+
+            );
+
+
+
+        select.value =
+
+            String(assetId);
+
+
+
+        const section =
+
+            document.getElementById(
+
+                "assets"
+
+            );
+
+
+
+        section.scrollIntoView({
+
+            behavior: "smooth"
+
+        });
+
+    }
+
+
+
+    /* ============================================================
+
+       CREATE ASSET
+
+       ============================================================ */
+
+    async function createAsset() {
+
+        const assetTag =
+
+            document.getElementById(
+
+                "assetTag"
+
+            ).value.trim();
+
+
+
+        const assetType =
+
+            document.getElementById(
+
+                "assetType"
+
+            ).value;
+
+
+
+        if (!assetTag) {
+
+            showMessage(
+
+                "assetMessage",
+
+                "Asset tag is required.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        if (!assetType) {
+
+            showMessage(
+
+                "assetMessage",
+
+                "Asset type is required.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        const payload = {
+
+            assetTag: assetTag,
+
+            assetType: assetType,
+
+            brand:
+
+                document.getElementById(
+
+                    "assetBrand"
+
+                ).value.trim(),
+
+            model:
+
+                document.getElementById(
+
+                    "assetModel"
+
+                ).value.trim(),
+
+            serialNumber:
+
+                document.getElementById(
+
+                    "assetSerial"
+
+                ).value.trim(),
+
+            department:
+
+                document.getElementById(
+
+                    "assetDepartment"
+
+                ).value.trim(),
+
+            location:
+
+                document.getElementById(
+
+                    "assetLocation"
+
+                ).value.trim(),
+
+            purchaseDate:
+
+                document.getElementById(
+
+                    "assetPurchaseDate"
+
+                ).value || null,
+
+            warrantyExpiry:
+
+                document.getElementById(
+
+                    "assetWarrantyExpiry"
+
+                ).value || null,
+
+            status:
+
+                document.getElementById(
+
+                    "assetStatus"
+
+                ).value,
+
+            notes:
+
+                document.getElementById(
+
+                    "assetNotes"
+
+                ).value.trim()
+
+        };
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API + "/api/assets",
+
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+
+                                "application/json"
+
+                        },
+
+                        body: JSON.stringify(payload)
+
+                    }
+
+                );
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    data.message ||
+
+                    data.error ||
+
+                    "Failed to create asset"
+
+                );
+
+            }
+
+
+
+            showMessage(
+
+                "assetMessage",
+
+                "Asset " +
+
+                data.assetTag +
+
+                " created successfully.",
+
+                "success"
+
+            );
+
+
+
+            clearAssetForm();
+
+            loadAssets();
+
+            loadAssetStats();
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function clearAssetForm() {
+
+        document.getElementById(
+
+            "assetTag"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetBrand"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetModel"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetSerial"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetPurchaseDate"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetWarrantyExpiry"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetNotes"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assetStatus"
+
+        ).value = "AVAILABLE";
+
+    }
+
+
+
+    /* ============================================================
+
+       ASSIGN ASSET
+
+       ============================================================ */
+
+    async function assignAsset() {
+
+        const assetId =
+
+            document.getElementById(
+
+                "assignAsset"
+
+            ).value;
+
+
+
+        const employeeDatabaseId =
+
+            document.getElementById(
+
+                "assignEmployee"
+
+            ).value;
+
+
+
+        if (!assetId) {
+
+            showMessage(
+
+                "assetMessage",
+
+                "Please select an asset.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        if (!employeeDatabaseId) {
+
+            showMessage(
+
+                "assetMessage",
+
+                "Please select an employee.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        const employee =
+
+            employees.find(function(item) {
+
+                return String(item.id) ===
+
+                    String(employeeDatabaseId);
+
+            });
+
+
+
+        if (!employee) {
+
+            showMessage(
+
+                "assetMessage",
+
+                "Selected employee was not found.",
+
+                "error"
+
+            );
+
+            return;
+
+        }
+
+
+
+        const params =
+
+            new URLSearchParams();
+
+
+
+        params.set(
+
+            "employeeId",
+
+            employee.employeeId || ""
+
+        );
+
+
+
+        params.set(
+
+            "employeeName",
+
+            employee.name || ""
+
+        );
+
+
+
+        params.set(
+
+            "department",
+
+            employee.department || ""
+
+        );
+
+
+
+        params.set(
+
+            "location",
+
+            employee.location || ""
+
+        );
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/assets/" +
+
+                    encodeURIComponent(assetId) +
+
+                    "/assign?" +
+
+                    params.toString(),
+
+                    {
+
+                        method: "PUT"
+
+                    }
+
+                );
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    data.message ||
+
+                    data.error ||
+
+                    "Failed to assign asset"
+
+                );
+
+            }
+
+
+
+            showMessage(
+
+                "assetMessage",
+
+                "Asset assigned successfully to " +
+
+                employee.name +
+
+                ".",
+
+                "success"
+
+            );
+
+
+
+            clearAssignmentForm();
+
+            loadAssets();
+
+            loadAssetStats();
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    function clearAssignmentForm() {
+
+        document.getElementById(
+
+            "assignAsset"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "assignEmployee"
+
+        ).value = "";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeInfo"
+
+        ).style.display = "none";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeId"
+
+        ).innerText = "-";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeName"
+
+        ).innerText = "-";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeDepartment"
+
+        ).innerText = "-";
+
+
+
+        document.getElementById(
+
+            "selectedEmployeeLocation"
+
+        ).innerText = "-";
+
+    }
+
+
+
+    /* ============================================================
+
+       ASSET LIFECYCLE
+
+       ============================================================ */
+
+    async function assetLifecycle(
+
+        assetId,
+
+        action
+
+    ) {
+
+        const messages = {
+
+            return:
+
+                "Return this asset?",
+
+            available:
+
+                "Mark this asset as available?",
+
+            repair:
+
+                "Move this asset to repair?",
+
+            damaged:
+
+                "Mark this asset as damaged?",
+
+            retire:
+
+                "Retire this asset?"
+
+        };
+
+
+
+        if (!confirm(
+
+            messages[action] ||
+
+            "Continue?"
+
+        )) {
+
+            return;
+
+        }
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/assets/" +
+
+                    encodeURIComponent(assetId) +
+
+                    "/" +
+
+                    encodeURIComponent(action),
+
+                    {
+
+                        method: "PUT"
+
+                    }
+
+                );
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    data.message ||
+
+                    data.error ||
+
+                    "Asset operation failed"
+
+                );
+
+            }
+
+
+
+            showMessage(
+
+                "assetMessage",
+
+                "Asset updated successfully.",
+
+                "success"
+
+            );
+
+
+
+            loadAssets();
+
+            loadAssetStats();
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       ASSET SEARCH
+
+       ============================================================ */
+
+    async function searchAssets() {
+
+        const keyword =
+
+            document.getElementById(
+
+                "assetSearch"
+
+            ).value.trim();
+
+
+
+        if (!keyword) {
+
+            loadAssets();
+
+            return;
+
+        }
+
+
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/assets/search?keyword=" +
+
+                    encodeURIComponent(keyword)
+
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Asset search failed"
+
+                );
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            renderAssets(
+
+                Array.isArray(data)
+
+                    ? data
+
+                    : []
+
+            );
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       WARRANTY
+
+       ============================================================ */
+
+    async function loadWarrantyAssets() {
+
+        try {
+
+            const response =
+
+                await fetch(
+
+                    API +
+
+                    "/api/assets/warranty-expiring?days=30"
+
+                );
+
+
+
+            if (!response.ok) {
+
+                throw new Error(
+
+                    "Failed to load warranty information"
+
+                );
+
+            }
+
+
+
+            const data =
+
+                await response.json();
+
+
+
+            const body =
+
+                document.getElementById(
+
+                    "warrantyTableBody"
+
+                );
+
+
+
+            body.innerHTML = "";
+
+
+
+            if (!Array.isArray(data) ||
+
+                data.length === 0) {
+
+                body.innerHTML = `
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            No assets expiring within 30 days.
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+
+            }
+
+
+
+            data.forEach(function(asset) {
+
+                const row =
+
+                    document.createElement("tr");
+
+
+
+                row.innerHTML = `
+
+                    <td>${escapeHtml(asset.assetTag)}</td>
+
+                    <td>${escapeHtml(asset.assetType)}</td>
+
+                    <td>${escapeHtml(asset.brand)}</td>
+
+                    <td>${escapeHtml(asset.model)}</td>
+
+                    <td>${escapeHtml(asset.employeeName || "-")}</td>
+
+                    <td>
+
+                        ${escapeHtml(
+
+                            formatDate(
+
+                                asset.warrantyExpiry
+
+                            )
+
+                        )}
+
+                    </td>
+
+                    <td>
+
+                        ${escapeHtml(asset.status)}
+
+                    </td>
+
+                `;
+
+
+
+                body.appendChild(row);
+
+            });
+
+        } catch (error) {
+
+            showMessage(
+
+                "assetMessage",
+
+                error.message,
+
+                "error"
+
+            );
+
+        }
+
+    }
+
+
+
+    /* ============================================================
+
+       INITIAL LOAD
+
+       ============================================================ */
+
+    document.addEventListener(
+
+        "DOMContentLoaded",
+
+        function() {
+
+            loadEmployees();
+
+            loadDashboard();
+
+            loadHelpdeskStats();
+
+            loadAssetStats();
+
+        }
+
+    );
+
+</script>
+
+</body>
+
+</html>

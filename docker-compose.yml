@@ -1,0 +1,48 @@
+services:
+
+  postgres:
+    image: postgres:17
+    container_name: smarthr-postgres
+
+    environment:
+      POSTGRES_DB: smarthr
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+
+    ports:
+      - "5434:5432"
+
+    volumes:
+      - smarthr-postgres-data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d smarthr"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+
+  smarthr-app:
+    image: smarthr:1.0
+    container_name: smarthr-app
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/smarthr
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
+
+    ports:
+      - "8081:8081"
+
+
+volumes:
+  smarthr-postgres-data:
